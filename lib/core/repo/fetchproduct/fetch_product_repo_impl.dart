@@ -9,17 +9,6 @@ class FetchProductRepoImpl implements FetchProductRepo {
 
   FetchProductRepoImpl({required this.databaseService});
   @override
-  Future<Either<Failure, dynamic>> fetchProduct() async {
-    try {
-      final data =
-          await databaseService.getData(path: Backendpoints.fetchProduct)
-              as List<Map<String, dynamic>>;
-      return Right(data);
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
-    }
-  }
-
   @override
   Future<Either<Failure, void>> deleteProduct(String id) async {
     try {
@@ -28,6 +17,18 @@ class FetchProductRepoImpl implements FetchProductRepo {
         documentId: id,
       );
       return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Map<String, dynamic>>>> fetchProduct() async {
+    try {
+      final data =
+          await databaseService.getData(path: Backendpoints.fetchProduct)
+              as List<Map<String, dynamic>>;
+      return Right(data);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

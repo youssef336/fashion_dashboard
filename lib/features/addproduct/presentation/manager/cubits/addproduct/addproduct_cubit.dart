@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages, non_constant_identifier_names
+
 import 'package:bloc/bloc.dart';
 import 'package:fashion_dashboard/core/entities/product_entity.dart';
 import 'package:fashion_dashboard/core/repo/addProduct/add_product_repo.dart';

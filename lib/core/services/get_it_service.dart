@@ -2,6 +2,8 @@ import 'package:fashion_dashboard/core/repo/addProduct/add_product_repo.dart';
 import 'package:fashion_dashboard/core/repo/addProduct/add_product_repo_impl.dart';
 import 'package:fashion_dashboard/core/repo/add_image/add_image_repo.dart';
 import 'package:fashion_dashboard/core/repo/add_image/add_image_repo_impl.dart';
+import 'package:fashion_dashboard/core/repo/customer_pay/customer_pay_repo.dart';
+import 'package:fashion_dashboard/core/repo/customer_pay/customer_pay_repo_impl.dart';
 import 'package:fashion_dashboard/core/repo/fetchproduct/fetch_product_repo.dart';
 import 'package:fashion_dashboard/core/repo/fetchproduct/fetch_product_repo_impl.dart';
 import 'package:fashion_dashboard/core/services/firebase_auth_service.dart';
@@ -31,5 +33,8 @@ void setupGetIt() {
   );
   getIt.registerLazySingleton<FetchProductRepo>(
     () => FetchProductRepoImpl(databaseService: getIt<DatabaseService>()),
+  );
+  getIt.registerLazySingleton<CustomerPayRepo>(
+    () => CustomerPayRepoImpl(getIt<DatabaseService>()),
   );
 }

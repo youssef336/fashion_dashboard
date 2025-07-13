@@ -17,7 +17,6 @@ class AddproductViewBodyData extends StatefulWidget {
 }
 
 class _AddproductViewBodyDataState extends State<AddproductViewBodyData> {
-  @override
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;

@@ -1,4 +1,4 @@
-part of 'fetchproducts_cubit.dart';
+part of 'products_cubit.dart';
 
 @immutable
 abstract class FetchproductsState {}

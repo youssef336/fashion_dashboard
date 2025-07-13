@@ -1,13 +1,6 @@
-import 'dart:io';
 
-import 'package:fashion_dashboard/core/widgets/custom_buttom.dart';
-import 'package:fashion_dashboard/core/widgets/custom_text_feild.dart';
-import 'package:fashion_dashboard/features/addproduct/presentation/manager/cubits/addproduct/addproduct_cubit.dart';
 import 'package:fashion_dashboard/features/addproduct/presentation/views/widgets/add_roduct_view_body_data.dart';
-import 'package:fashion_dashboard/features/addproduct/presentation/views/widgets/image_feild.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uuid/uuid.dart';
 
 class AddproductViewBody extends StatelessWidget {
   const AddproductViewBody({super.key});

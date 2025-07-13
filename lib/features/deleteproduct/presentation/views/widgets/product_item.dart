@@ -1,5 +1,5 @@
 import 'package:fashion_dashboard/core/entities/product_entity.dart';
-import 'package:fashion_dashboard/features/deleteproduct/presentation/manager/cubits/fetchproducts/fetchproducts_cubit.dart';
+import 'package:fashion_dashboard/features/deleteproduct/presentation/manager/cubits/fetchproducts/products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,9 +46,7 @@ class ProductItem extends StatelessWidget {
             child: IconButton(
               icon: const Icon(Icons.delete, color: Colors.red),
               onPressed: () {
-                context.read<FetchproductsCubit>().deleteProduct(
-                  product.docmentId,
-                );
+                context.read<productsCubit>().deleteProduct(product.docmentId);
               },
             ),
           ),

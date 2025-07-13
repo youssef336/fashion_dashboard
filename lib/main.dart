@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:fashion_dashboard/core/helper_functions/on_generate_routes.dart';
 import 'package:fashion_dashboard/core/services/firebase_auth_service.dart';
 import 'package:fashion_dashboard/core/services/get_it_service.dart';
