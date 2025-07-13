@@ -1,6 +1,13 @@
+import 'dart:io';
+
 import 'package:fashion_dashboard/core/widgets/custom_buttom.dart';
 import 'package:fashion_dashboard/core/widgets/custom_text_feild.dart';
+import 'package:fashion_dashboard/features/addproduct/presentation/manager/cubits/addproduct/addproduct_cubit.dart';
+import 'package:fashion_dashboard/features/addproduct/presentation/views/widgets/add_roduct_view_body_data.dart';
+import 'package:fashion_dashboard/features/addproduct/presentation/views/widgets/image_feild.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 class AddproductViewBody extends StatelessWidget {
   const AddproductViewBody({super.key});
@@ -14,28 +21,8 @@ class AddproductViewBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.3),
-            const CustomTextFormFeild(
-              hintText: 'Product Name',
-              textInputType: TextInputType.text,
-            ),
+            const AddproductViewBodyData(),
             const SizedBox(height: 20),
-            const CustomTextFormFeild(
-              hintText: 'Product Price',
-              textInputType: TextInputType.number,
-            ),
-            const SizedBox(height: 20),
-            const CustomTextFormFeild(
-              hintText: 'Product Description',
-              textInputType: TextInputType.text,
-            ),
-            const SizedBox(height: 20),
-            const CustomTextFormFeild(
-              hintText: 'Product Image',
-              maxLines: 5,
-              textInputType: TextInputType.text,
-            ),
-            const SizedBox(height: 60),
-            const CustomButtom(text: 'Add Product'),
           ],
         ),
       ),

@@ -20,4 +20,9 @@ class SupabaseStorage implements StorageService {
 
     return publicUrl;
   }
+
+  @override
+  Future<void> deleteFile(String path) async {
+    await _supabase.client.storage.from(KsupabaseBucket).remove([path]);
+  }
 }
