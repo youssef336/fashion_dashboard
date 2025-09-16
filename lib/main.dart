@@ -17,13 +17,14 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await NotificationService.init();
 
   NotificationService.setupForegroundListener();
   await Supabase.initialize(url: KsupabaseUrl, anonKey: KsupabaseKey);
   setupGetIt();
   await Prefs.init();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const fashion_dashboard());
 }
