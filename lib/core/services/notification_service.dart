@@ -1,46 +1,65 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter/material.dart';
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // init any needed services
+  print('Handling a background message: ${message.messageId}');
+  // you can show a notification here even when app is backgrounded
+  // maybe using flutter_local_notifications
+}
 
 class NotificationService {
-  static final _messaging = FirebaseMessaging.instance;
-  static final _localNotifications = FlutterLocalNotificationsPlugin();
-
-  // Top-level background handler (must NOT be inside a class)
-  static Future<void> firebaseMessagingBackgroundHandler(
-    RemoteMessage message,
-  ) async {
-    // handle background notification here
-    print("Handling a background message: ${message.messageId}");
-  }
+  static late FlutterLocalNotificationsPlugin _localNotifications;
+  static FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   static Future<void> init() async {
-    // Request permission (especially important on iOS)
-    await _messaging.requestPermission(alert: true, badge: true, sound: true);
+    WidgetsFlutterBinding.ensureInitialized();
 
-    // Local notifications setup
-    const AndroidInitializationSettings initializationSettingsAndroid =
+    // iOS: request permissions
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    print('User granted permission: ${settings.authorizationStatus}');
+
+    // initialize FlutterLocalNotificationsPlugin
+    _localNotifications = FlutterLocalNotificationsPlugin();
+
+    const AndroidInitializationSettings androidInitSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    final InitializationSettings initializationSettings =
-        const InitializationSettings(android: initializationSettingsAndroid);
+    final DarwinInitializationSettings iosInitSettings =
+        const DarwinInitializationSettings();
 
-    await _localNotifications.initialize(initializationSettings);
+    final InitializationSettings initSettings = InitializationSettings(
+      android: androidInitSettings,
+      iOS: iosInitSettings,
+    );
 
-    // Get FCM token
-    String? token = await _messaging.getToken();
-    print("FCM Token: $token");
-    // TODO: send token to your backend / database
+    await _localNotifications.initialize(
+      initSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse response) {
+        // handle user tapping on notification
+        print('Notification clicked with payload: ${response.payload}');
+      },
+    );
+
+    // Set background message handler (top-level or static)
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    // Optionally get token
+    String? token = await messaging.getToken();
+    print('FCM Token: $token');
+    // Save this token to your database, so server Cloud Functions or backend can use it.
   }
 
-  static void setupHandlers() {
-    // Foreground
+  static void setupForegroundListener() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print("Foreground message: ${message.notification?.title}");
+      print('Received a foreground message: ${message.notification?.title}');
       _showNotification(message);
     });
-
-    // Background
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   }
 
   static Future<void> _showNotification(RemoteMessage message) async {
@@ -55,6 +74,7 @@ class NotificationService {
 
     const NotificationDetails notificationDetails = NotificationDetails(
       android: androidDetails,
+      iOS: DarwinNotificationDetails(), // configure as needed
     );
 
     await _localNotifications.show(
@@ -62,6 +82,7 @@ class NotificationService {
       message.notification?.title,
       message.notification?.body,
       notificationDetails,
+      payload: message.data['payload'] ?? '',
     );
   }
 }
