@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fashion_dashboard/core/services/push_service.dart';
 import 'package:fashion_dashboard/core/widgets/custom_buttom.dart';
 import 'package:fashion_dashboard/core/widgets/custom_text_feild.dart';
 import 'package:fashion_dashboard/features/addproduct/presentation/views/widgets/image_feild.dart';
@@ -83,12 +84,17 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
                           context.read<NotificationCubit>().addNotification(
                             NotificationEntity(
                               code: code!,
-
                               descriptionInArabic: descriptioninArabic!,
                               descriptioninEnglish: _description!,
                               image: _image!,
                               date: _date,
                             ),
+                          );
+
+                          // ✅ Also send push notification
+                          PushService.sendNotification(
+                            "New Notification",
+                            _description ?? "You have a new update",
                           );
                         } else {
                           autovalidateMode = AutovalidateMode.always;
