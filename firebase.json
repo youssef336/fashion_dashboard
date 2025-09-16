@@ -1,1 +1,38 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"fashion-app-7bd03","appId":"1:823718437608:android:4e0d7fa98397c5f30b9f5d","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"fashion-app-7bd03","configurations":{"android":"1:823718437608:android:4e0d7fa98397c5f30b9f5d","ios":"1:823718437608:ios:b2e110e72da4035c0b9f5d","macos":"1:823718437608:ios:b2e110e72da4035c0b9f5d","web":"1:823718437608:web:1feaceb73bc3cc410b9f5d","windows":"1:823718437608:web:d6b7ff18aeb30b9a0b9f5d"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "fashion-app-7bd03",
+          "appId": "1:823718437608:android:4e0d7fa98397c5f30b9f5d",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "fashion-app-7bd03",
+          "configurations": {
+            "android": "1:823718437608:android:4e0d7fa98397c5f30b9f5d",
+            "ios": "1:823718437608:ios:b2e110e72da4035c0b9f5d",
+            "macos": "1:823718437608:ios:b2e110e72da4035c0b9f5d",
+            "web": "1:823718437608:web:1feaceb73bc3cc410b9f5d",
+            "windows": "1:823718437608:web:d6b7ff18aeb30b9a0b9f5d"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ]
+}

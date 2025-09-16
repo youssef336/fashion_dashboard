@@ -3,6 +3,7 @@
 import 'package:fashion_dashboard/core/helper_functions/on_generate_routes.dart';
 import 'package:fashion_dashboard/core/services/firebase_auth_service.dart';
 import 'package:fashion_dashboard/core/services/get_it_service.dart';
+import 'package:fashion_dashboard/core/services/manager_token_service.dart';
 import 'package:fashion_dashboard/core/services/notification_service.dart';
 import 'package:fashion_dashboard/core/services/shared_preferences_service.dart';
 
@@ -20,6 +21,8 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await NotificationService.init();
+  // Save manager token once app starts (example: managerId = "admin")
+  await ManagerTokenService.saveManagerToken("admin");
 
   NotificationService.setupForegroundListener();
   await Supabase.initialize(url: KsupabaseUrl, anonKey: KsupabaseKey);
