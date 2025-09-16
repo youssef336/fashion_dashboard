@@ -14,6 +14,8 @@ import 'package:fashion_dashboard/core/services/main/storage_service.dart';
 import 'package:fashion_dashboard/core/services/supabase_storage.dart';
 import 'package:fashion_dashboard/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:fashion_dashboard/features/auth/domain/repo/auth_repo.dart';
+import 'package:fashion_dashboard/features/notification/data/repo/notification_repo_impl.dart';
+import 'package:fashion_dashboard/features/notification/domain/repo/notification_repo.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -27,6 +29,9 @@ void setupGetIt() {
   getIt.registerLazySingleton<DatabaseService>(() => FirebaseDatabaseServer());
   getIt.registerLazySingleton<AddProductRepo>(
     () => AddProductRepoImpl(getIt<DatabaseService>()),
+  );
+  getIt.registerLazySingleton<NotificationRepo>(
+    () => NotificationRepoImpl(getIt<DatabaseService>()),
   );
   getIt.registerLazySingleton<AddImageRepo>(
     () => AddImageRepoImpl(getIt<StorageService>()),

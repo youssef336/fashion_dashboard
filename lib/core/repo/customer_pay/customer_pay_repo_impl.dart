@@ -11,7 +11,7 @@ class CustomerPayRepoImpl implements CustomerPayRepo {
   Future<Either<Failure, void>> updateCustomerPay(bool ispay) async {
     try {
       await databaseService.updateData(
-        path: Backendpoints.pay,
+        path: BackEndEndpoints.pay,
         documentId: '1',
         data: {'isPay': ispay},
       );

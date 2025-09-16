@@ -13,7 +13,7 @@ class FetchProductRepoImpl implements FetchProductRepo {
   Future<Either<Failure, void>> deleteProduct(String id) async {
     try {
       await databaseService.deleteData(
-        path: Backendpoints.fetchProduct,
+        path: BackEndEndpoints.fetchProduct,
         documentId: id,
       );
       return const Right(null);
@@ -26,7 +26,7 @@ class FetchProductRepoImpl implements FetchProductRepo {
   Future<Either<Failure, List<Map<String, dynamic>>>> fetchProduct() async {
     try {
       final data =
-          await databaseService.getData(path: Backendpoints.fetchProduct)
+          await databaseService.getData(path: BackEndEndpoints.fetchProduct)
               as List<Map<String, dynamic>>;
       return Right(data);
     } catch (e) {

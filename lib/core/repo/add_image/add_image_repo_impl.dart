@@ -15,7 +15,7 @@ class AddImageRepoImpl implements AddImageRepo {
     try {
       final url = await storageService.uploadfile(
         image!,
-        Backendpoints.addProduct,
+        BackEndEndpoints.addProduct,
       );
       return Right(url);
     } catch (e) {

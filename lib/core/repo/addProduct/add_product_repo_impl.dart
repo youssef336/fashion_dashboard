@@ -15,7 +15,7 @@ class AddProductRepoImpl implements AddProductRepo {
     try {
       await databaseService.addData(
         documentId: productEntity.docmentId,
-        path: Backendpoints.addProduct,
+        path: BackEndEndpoints.addProduct,
         data: ProductModel.fromEntity(productEntity).tojson(),
       );
       return const Right(null);
