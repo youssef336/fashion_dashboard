@@ -11,6 +11,7 @@ import 'package:fashion_dashboard/features/auth/presentation/views/login_view.da
 import 'package:fashion_dashboard/features/home/presentation/views/home_view.dart';
 import 'package:fashion_dashboard/firebase_options.dart';
 import 'package:fashion_dashboard/secret_conatant.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -27,8 +28,10 @@ void main() async {
     sound: true,
   );
   await NotificationService.init();
-  // Save manager token once app starts (example: managerId = "admin")
-  await ManagerTokenService.saveManagerToken("admin");
+  // Save manager token only when a Firebase user is already authenticated.
+  if (FirebaseAuth.instance.currentUser != null) {
+    await ManagerTokenService.saveManagerToken("admin");
+  }
 
   NotificationService.setupForegroundListener();
   await Supabase.initialize(url: KsupabaseUrl, anonKey: KsupabaseKey);
