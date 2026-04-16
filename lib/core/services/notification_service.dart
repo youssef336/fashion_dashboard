@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // init any needed services
-  print('Handling a background message: ${message.messageId}');
+  debugPrint('Handling a background message: ${message.messageId}');
   // you can show a notification here even when app is backgrounded
   // maybe using flutter_local_notifications
 }
@@ -22,7 +22,7 @@ class NotificationService {
       badge: true,
       sound: true,
     );
-    print('User granted permission: ${settings.authorizationStatus}');
+    debugPrint('User granted permission: ${settings.authorizationStatus}');
 
     // initialize FlutterLocalNotificationsPlugin
     _localNotifications = FlutterLocalNotificationsPlugin();
@@ -42,7 +42,7 @@ class NotificationService {
       initSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) {
         // handle user tapping on notification
-        print('Notification clicked with payload: ${response.payload}');
+        debugPrint('Notification clicked with payload: ${response.payload}');
       },
     );
 
@@ -51,13 +51,15 @@ class NotificationService {
 
     // Optionally get token
     String? token = await messaging.getToken();
-    print('FCM Token: $token');
+    debugPrint('FCM Token: $token');
     // Save this token to your database, so server Cloud Functions or backend can use it.
   }
 
   static void setupForegroundListener() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Received a foreground message: ${message.notification?.title}');
+      debugPrint(
+        'Received a foreground message: ${message.notification?.title}',
+      );
       _showNotification(message);
     });
   }

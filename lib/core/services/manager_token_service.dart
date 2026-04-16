@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 
 class ManagerTokenService {
   static Future<void> saveManagerToken(String managerId) async {
@@ -12,7 +13,7 @@ class ManagerTokenService {
             'fcmToken': token,
             'updatedAt': FieldValue.serverTimestamp(),
           }, SetOptions(merge: true));
-      print("✅ Manager token saved: $token");
+      debugPrint('Manager token saved: $token');
     }
   }
 }

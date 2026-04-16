@@ -5,6 +5,7 @@ class CustomTextFormFeild extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.textInputType,
+    this.controller,
     this.suffixIcon,
     this.onSaved,
     this.obscureText = false,
@@ -12,6 +13,7 @@ class CustomTextFormFeild extends StatelessWidget {
   });
   final String hintText;
   final TextInputType textInputType;
+  final TextEditingController? controller;
   final Widget? suffixIcon;
   final void Function(String?)? onSaved;
   final bool obscureText;
@@ -19,6 +21,7 @@ class CustomTextFormFeild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       maxLines: maxLines,
       obscureText: obscureText,
       onSaved: onSaved,

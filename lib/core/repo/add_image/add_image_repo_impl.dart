@@ -12,9 +12,13 @@ class AddImageRepoImpl implements AddImageRepo {
   AddImageRepoImpl(this.storageService);
   @override
   Future<Either<Failure, String>> addImage(File? image) async {
+    if (image == null) {
+      return const Left(ServerFailure('No image selected'));
+    }
+
     try {
       final url = await storageService.uploadfile(
-        image!,
+        image,
         BackEndEndpoints.addProduct,
       );
       return Right(url);

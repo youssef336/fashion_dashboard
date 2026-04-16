@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashion_dashboard/secret_conatant.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class PushService {
-  // Put your server key here (get from Firebase console → Cloud Messaging)
-  // Warning: not secure to have in client-side code.
+  // ⚠️ Not secure to keep server key in client-side code
   static const String _serverKey = SecretKey;
 
   static Future<String?> getManagerToken() async {
@@ -19,10 +19,14 @@ class PushService {
     return null;
   }
 
-  static Future<void> sendNotification(String title, String body) async {
+  static Future<void> sendNotification(
+    String title,
+    String body, {
+    String? imageUrl, // 👈 optional image
+  }) async {
     final token = await getManagerToken();
     if (token == null) {
-      print("No manager token found");
+      debugPrint('No manager token found');
       return;
     }
 
@@ -34,7 +38,11 @@ class PushService {
 
     final payload = {
       "to": token,
-      "notification": {"title": title, "body": body},
+      "notification": {
+        "title": title,
+        "body": body,
+        if (imageUrl != null) "image": imageUrl, // 👈 attach image if provided
+      },
     };
 
     final response = await http.post(
@@ -42,6 +50,7 @@ class PushService {
       headers: headers,
       body: jsonEncode(payload),
     );
-    print("Push response: ${response.statusCode} ${response.body}");
+
+    debugPrint('Push response: ${response.statusCode} ${response.body}');
   }
 }

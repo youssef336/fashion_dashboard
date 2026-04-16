@@ -93,8 +93,10 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
 
                           // ✅ Also send push notification
                           PushService.sendNotification(
-                            "New Notification",
                             _description ?? "You have a new update",
+                            descriptioninArabic ?? "",
+                            imageUrl: _image
+                                ?.path, // will be uploaded, or a placeholder if null
                           );
                         } else {
                           autovalidateMode = AutovalidateMode.always;

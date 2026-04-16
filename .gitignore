@@ -12,6 +12,8 @@
 .swiftpm/
 migrate_working_dir/
 lib/secret_conatant.dart
+fashion-app-7bd03-89cb5b0fc055.json
+functions/serviceAccountKey.json
 
 
 # IntelliJ related

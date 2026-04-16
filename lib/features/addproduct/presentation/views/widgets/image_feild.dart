@@ -16,22 +16,32 @@ class ImageFeild extends StatefulWidget {
 class _ImageFeildState extends State<ImageFeild> {
   bool isLoading = false;
   File? fileImage;
+
   @override
   Widget build(BuildContext context) {
     return Skeletonizer(
       enabled: isLoading,
       child: GestureDetector(
         onTap: () async {
-          isLoading = true;
-          setState(() {});
-          try {
-            await Pickimage();
-          } on Exception {
-            isLoading = false;
-            setState(() {});
+          if (isLoading) {
+            return;
           }
-          isLoading = false;
-          setState(() {});
+
+          setState(() {
+            isLoading = true;
+          });
+
+          try {
+            await pickImage();
+          } on Exception {
+            // Ignore picker exceptions to keep UX responsive.
+          } finally {
+            if (mounted) {
+              setState(() {
+                isLoading = false;
+              });
+            }
+          }
         },
         child: Stack(
           children: [
@@ -66,11 +76,18 @@ class _ImageFeildState extends State<ImageFeild> {
     );
   }
 
-  Future<void> Pickimage() async {
+  Future<void> pickImage() async {
     final ImagePicker picker = ImagePicker();
-    // Pick an image.
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    fileImage = File(image!.path);
+
+    if (image == null) {
+      return;
+    }
+
+    fileImage = File(image.path);
     widget.onImageSelected(fileImage);
+    if (mounted) {
+      setState(() {});
+    }
   }
 }
